@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.androidgymapp.databinding.FragmentFirstBinding;
+import com.example.androidgymapp.databinding.FragmentStatisticsBinding;
 
-public class FirstFragment extends Fragment {
+public class Statistics extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentStatisticsBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,7 +20,7 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding =  FragmentStatisticsBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -29,10 +28,6 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(v ->
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment)
-        );
     }
 
     @Override

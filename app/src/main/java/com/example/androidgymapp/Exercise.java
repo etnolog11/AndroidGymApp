@@ -1,3 +1,5 @@
+package com.example.androidgymapp;
+
 import java.util.List;
 
 public class Exercise {
