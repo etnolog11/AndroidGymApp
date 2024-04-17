@@ -1,0 +1,3 @@
+public enum ExerciseType {
+    CHESTPRESS,ELBOWPRESS,SEATEDROW,LATPULLDOWN
+}
