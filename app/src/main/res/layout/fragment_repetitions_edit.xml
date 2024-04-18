@@ -8,56 +8,58 @@
     tools:context=".EditExercise">
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/repetitions_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Input a whole number"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/weight"
-        app:layout_constraintStart_toEndOf="@+id/weight"
-        app:layout_constraintTop_toTopOf="@+id/weight" />
+        app:layout_constraintBottom_toBottomOf="@+id/repetitions_text"
+        app:layout_constraintStart_toEndOf="@+id/repetitions_text"
+        app:layout_constraintTop_toTopOf="@+id/repetitions_text" />
 
     <TextView
-        android:id="@+id/weight"
+        android:id="@+id/repetitions_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="48dp"
-        android:text="TextView"
+        android:text="repetitions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/repetitionsorseconds"
+        android:id="@+id/weight_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/weight"
+        android:text="weight"
+        app:layout_constraintEnd_toEndOf="@+id/repetitions_text"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/weight"
-        app:layout_constraintTop_toTopOf="@+id/weight" />
+        app:layout_constraintStart_toStartOf="@+id/repetitions_text"
+        app:layout_constraintTop_toTopOf="@+id/repetitions_text" />
 
     <EditText
-        android:id="@+id/editTextNumber2"
+        android:id="@+id/weight_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@+id/repetitionsorseconds"
-        app:layout_constraintStart_toEndOf="@+id/repetitionsorseconds"
-        app:layout_constraintTop_toTopOf="@+id/repetitionsorseconds" />
+        android:hint="input a number"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@+id/weight_text"
+        app:layout_constraintStart_toStartOf="@+id/repetitions_input"
+        app:layout_constraintTop_toTopOf="@+id/weight_text" />
 
     <Button
         android:id="@+id/save_repetitions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/previous"
+        android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber2"
+        app:layout_constraintTop_toBottomOf="@+id/weight_input"
         app:layout_constraintVertical_bias="0.120000005"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="104dp" />

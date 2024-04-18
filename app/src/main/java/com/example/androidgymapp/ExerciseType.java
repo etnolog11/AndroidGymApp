@@ -1,4 +1,15 @@
 package com.example.androidgymapp;
-public enum ExerciseType {
-    CHESTPRESS,ELBOWPRESS,SEATEDROW,LATPULLDOWN
+
+
+public class ExerciseType {
+    private byte repetitions;
+    private float weight;
+    ExerciseType (byte repetitions,float weight ){
+        this.repetitions= repetitions;
+        this.weight= weight;
+    }
+    @Override
+    public String toString() {
+        return repetitions+" reps with "+weight+"kg";
+    }
 }

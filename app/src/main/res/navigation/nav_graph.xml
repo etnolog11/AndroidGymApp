@@ -22,4 +22,12 @@
             android:id="@+id/action_repEdit_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/workoutEdit"
+        android:name="com.example.androidgymapp.WorkoutEdit"
+        android:label="WorkoutEdit" />
+    <fragment
+        android:id="@+id/statistics"
+        android:name="com.example.androidgymapp.Statistics"
+        android:label="Statistics" />
 </navigation>
