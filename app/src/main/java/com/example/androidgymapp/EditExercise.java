@@ -27,7 +27,8 @@ public class EditExercise extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        binding.addReps.setOnClickListener(v -> NavHostFragment.findNavController(EditExercise.this).navigate(R.id.action_editExercise_to_repEdit));
+        binding.saveExercise.setOnClickListener(v->NavHostFragment.findNavController(EditExercise.this).navigate(R.id.action_editExercise_to_workoutEdit));
     }
 
     @Override

@@ -39,7 +39,11 @@
     <fragment
         android:id="@+id/statistics"
         android:name="com.example.androidgymapp.Statistics"
-        android:label="Statistics" />
+        android:label="Statistics" >
+        <action
+            android:id="@+id/action_statistics_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editExercise"
         android:name="com.example.androidgymapp.EditExercise"

@@ -29,7 +29,7 @@ public class RepEdit extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.saveRepetitions.setOnClickListener(v ->{
+        binding.saveExercise.setOnClickListener(v ->{
                TextView weightScanner= (TextView) view.findViewById(R.id.weight_input);
                TextView repetitionsScanner= (TextView) view.findViewById(R.id.repetitions_input);
                     try {

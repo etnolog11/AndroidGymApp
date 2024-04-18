@@ -8,26 +8,14 @@
     tools:context=".EditExercise">
 
     <Button
-        android:id="@+id/save_repetitions"
+        android:id="@+id/save_exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/previous"
-        app:layout_constraintBottom_toTopOf="@id/textview_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="104dp" />
 
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lorem_ipsum"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/save_repetitions"
-        tools:layout_conversion_absoluteHeight="888dp"
-        tools:layout_conversion_absoluteWidth="379dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
