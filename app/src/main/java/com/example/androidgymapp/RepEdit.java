@@ -29,20 +29,7 @@ public class RepEdit extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.saveExercise.setOnClickListener(v ->{
-               TextView weightScanner= (TextView) view.findViewById(R.id.weight_input);
-               TextView repetitionsScanner= (TextView) view.findViewById(R.id.repetitions_input);
-                    try {
-                        float weight = Float.parseFloat(weightScanner.getText().toString());
-                        byte repetitions= Byte.parseByte(repetitionsScanner.getText().toString());
-                        DataManager.exercises.add(new ExerciseType(repetitions,weight));
-                    } catch (NumberFormatException e) {
-                        ExceptionNotification.somethingWentWrong(getActivity(),"NumberFormatException");
-                    }
-
-                    NavHostFragment.findNavController(RepEdit.this).navigate(R.id.action_repEdit_to_editExercise);
-                    ExceptionNotification.somethingWentWrong(getActivity(),DataManager.exercises.toString());
-        }
+        binding.saveExercise.setOnClickListener(v -> addRep(view)
         );
     }
 
@@ -51,5 +38,19 @@ public class RepEdit extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
+    public void addRep(View view){
+        {
+            TextView weightScanner= (TextView) view.findViewById(R.id.weight_input);
+            TextView repetitionsScanner= (TextView) view.findViewById(R.id.repetitions_input);
+            try {
+                float weight = Float.parseFloat(weightScanner.getText().toString());
+                byte repetitions= Byte.parseByte(repetitionsScanner.getText().toString());
+                DataManager.addRepetitions(new ExerciseType(repetitions,weight));
+            } catch (NumberFormatException e) {
+                ExceptionNotification.somethingWentWrong(getActivity(),"Enter valid numbers");
+                return;
+            }
+            NavHostFragment.findNavController(RepEdit.this).navigate(R.id.action_repEdit_to_editExercise);
+        }
+    }
 }
