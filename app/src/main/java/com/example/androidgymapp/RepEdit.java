@@ -40,7 +40,7 @@ public class RepEdit extends Fragment {
                         ExceptionNotification.somethingWentWrong(getActivity(),"NumberFormatException");
                     }
 
-                    NavHostFragment.findNavController(RepEdit.this).navigate(R.id.action_repEdit_to_FirstFragment);
+                    NavHostFragment.findNavController(RepEdit.this).navigate(R.id.action_repEdit_to_editExercise);
                     ExceptionNotification.somethingWentWrong(getActivity(),DataManager.exercises.toString());
         }
         );

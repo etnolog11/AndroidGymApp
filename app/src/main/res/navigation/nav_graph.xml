@@ -11,23 +11,45 @@
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_main_menu">
         <action
-            android:id="@+id/action_FirstFragment_to_repEdit"
-            app:destination="@id/repEdit" />
+            android:id="@+id/action_FirstFragment_to_statistics"
+            app:destination="@id/statistics" />
+        <action
+            android:id="@+id/action_FirstFragment_to_workoutEdit"
+            app:destination="@id/workoutEdit" />
     </fragment>
     <fragment
         android:id="@+id/repEdit"
         android:name="com.example.androidgymapp.RepEdit"
         android:label="RepEdit" >
         <action
-            android:id="@+id/action_repEdit_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_repEdit_to_editExercise"
+            app:destination="@id/editExercise" />
     </fragment>
     <fragment
         android:id="@+id/workoutEdit"
         android:name="com.example.androidgymapp.WorkoutEdit"
-        android:label="WorkoutEdit" />
+        android:label="WorkoutEdit" >
+        <action
+            android:id="@+id/action_workoutEdit_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_workoutEdit_to_editExercise"
+            app:destination="@id/editExercise" />
+    </fragment>
     <fragment
         android:id="@+id/statistics"
         android:name="com.example.androidgymapp.Statistics"
         android:label="Statistics" />
+    <fragment
+        android:id="@+id/editExercise"
+        android:name="com.example.androidgymapp.EditExercise"
+        android:label="fragment_excercise_edit"
+        tools:layout="@layout/fragment_excercise_edit" >
+        <action
+            android:id="@+id/action_editExercise_to_workoutEdit"
+            app:destination="@id/workoutEdit" />
+        <action
+            android:id="@+id/action_editExercise_to_repEdit"
+            app:destination="@id/repEdit" />
+    </fragment>
 </navigation>

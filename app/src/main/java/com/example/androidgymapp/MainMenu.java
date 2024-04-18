@@ -16,6 +16,7 @@ import java.util.List;
 public class MainMenu extends Fragment {
 
     private FragmentMainMenuBinding binding;
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -30,9 +31,13 @@ public class MainMenu extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(v ->
+        binding.createNew.setOnClickListener(v ->
                 NavHostFragment.findNavController(MainMenu.this)
-                        .navigate(R.id.action_FirstFragment_to_repEdit)
+                        .navigate(R.id.action_FirstFragment_to_workoutEdit)
+        );
+        binding.stat.setOnClickListener(v ->
+                NavHostFragment.findNavController(MainMenu.this)
+                        .navigate(R.id.action_FirstFragment_to_statistics)
         );
     }
 
