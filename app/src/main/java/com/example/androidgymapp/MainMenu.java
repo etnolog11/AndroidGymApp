@@ -1,9 +1,11 @@
 package com.example.androidgymapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,14 +18,17 @@ import java.util.List;
 public class MainMenu extends Fragment {
 
     private FragmentMainMenuBinding binding;
-
+    private ListView listView;
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
+        DataManager.activity=getActivity();
         binding = FragmentMainMenuBinding.inflate(inflater, container, false);
+        listView=(ListView) binding.getRoot().findViewById(R.id.workout_list);
+        CustomBaseAdapterWorkouts adapter= new CustomBaseAdapterWorkouts(getContext(),DataManager.getWorkouts());
+        listView.setAdapter(adapter);
         return binding.getRoot();
 
     }

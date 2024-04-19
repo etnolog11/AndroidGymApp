@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="96dp"
-        android:text="@string/previous"
+        android:text="Save workout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/add_exercise"
         tools:layout_conversion_absoluteHeight="48dp"

@@ -15,4 +15,20 @@ public class Workout {
         this.name=name;
         exercises=exer;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public byte getScore() {
+        return score;
+    }
+
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public int getDurationInMinutes() {
+        return durationInMinutes;
+    }
 }
