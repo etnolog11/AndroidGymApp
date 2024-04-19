@@ -45,7 +45,7 @@ public class EditExercise extends Fragment {
     }
     private void addExercise(View view){
 
-        DataManager.addExercise(new Exercise(DataManager.exercises));
+        DataManager.addExercise(new Exercise(DataManager.exercises,"Pull Ups"));
 
         NavHostFragment.findNavController(EditExercise.this)
                 .navigate(R.id.action_editExercise_to_workoutEdit);

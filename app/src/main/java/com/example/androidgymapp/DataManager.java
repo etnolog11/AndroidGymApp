@@ -19,7 +19,6 @@ public class DataManager {
             {new Workout(LocalDateTime.now(), 55, (byte) 3, "sdf", null)}));
     public static List<ExerciseType> exercises= new ArrayList<>();
     public static List<Exercise> allExercises= new ArrayList<>();
-    public static FragmentActivity activity;
     public static void addWorkout(Workout workout){
         workouts.add(workout);
         allExercises=null;
@@ -38,5 +37,8 @@ public class DataManager {
 
     public static List<Workout> getWorkouts() {
         return workouts;
+    }
+    public static List<Exercise> getExercises() {
+        return allExercises;
     }
 }

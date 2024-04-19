@@ -22,8 +22,7 @@ public class CustomBaseAdapterWorkouts extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        ExceptionNotification.somethingWentWrong(DataManager.activity,"3");
-        return DataManager.getWorkouts().size();
+        return data.size();
     }
 
     @Override

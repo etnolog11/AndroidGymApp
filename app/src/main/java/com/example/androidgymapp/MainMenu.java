@@ -24,7 +24,6 @@ public class MainMenu extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        DataManager.activity=getActivity();
         binding = FragmentMainMenuBinding.inflate(inflater, container, false);
         listView=(ListView) binding.getRoot().findViewById(R.id.workout_list);
         CustomBaseAdapterWorkouts adapter= new CustomBaseAdapterWorkouts(getContext(),DataManager.getWorkouts());

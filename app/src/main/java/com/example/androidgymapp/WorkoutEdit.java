@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class WorkoutEdit extends Fragment {
 
@@ -31,6 +33,8 @@ public class WorkoutEdit extends Fragment {
     ) {
 
         binding = FragmentWorkoutEditBinding.inflate(inflater, container, false);
+        ListView listView=(ListView)binding.getRoot().findViewById(R.id.exercise_list_view);
+        listView.setAdapter(new CustomBaseAdapterExercises(getContext(),DataManager.allExercises));
         return binding.getRoot();
 
     }
