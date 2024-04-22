@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 public class Exercise {
     private String name;
-    private List<ExerciseType> repetitions;
-    Exercise(List<ExerciseType> reps,String name){
+    private List<Set> repetitions;
+    Exercise(List<Set> reps, String name){
         repetitions=reps;
         this.name=name;
     }
@@ -31,6 +31,6 @@ public class Exercise {
         return repetitions.size();
     }
     public void addSet(byte reps,float weight){
-        repetitions.add(new ExerciseType(reps,weight));
+        repetitions.add(new Set(reps,weight));
     }
 }

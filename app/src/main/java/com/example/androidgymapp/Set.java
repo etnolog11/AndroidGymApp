@@ -1,10 +1,10 @@
 package com.example.androidgymapp;
 
 
-public class ExerciseType {
+public class Set {
     private byte repetitions;
     private float weight;
-    ExerciseType (byte repetitions,float weight ){
+    Set(byte repetitions, float weight ){
         this.repetitions= repetitions;
         this.weight= weight;
     }

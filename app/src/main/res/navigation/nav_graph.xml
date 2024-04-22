@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/repEdit"
-        android:name="com.example.androidgymapp.RepEdit"
+        android:name="com.example.androidgymapp.SetEdit"
         android:label="RepEdit" >
         <action
             android:id="@+id/action_repEdit_to_editExercise"
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/editExercise"
-        android:name="com.example.androidgymapp.EditExercise"
+        android:name="com.example.androidgymapp.ExerciseEdit"
         android:label="fragment_excercise_edit"
         tools:layout="@layout/fragment_excercise_edit" >
         <action

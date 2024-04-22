@@ -5,11 +5,12 @@
     android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditExercise">
+    tools:context=".ExerciseEdit">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id= "@+id/set_list"
         app:layout_constraintBottom_toTopOf="@+id/add_reps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

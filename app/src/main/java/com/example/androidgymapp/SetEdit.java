@@ -12,7 +12,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.androidgymapp.databinding.FragmentRepetitionsEditBinding;
 
-public class RepEdit extends Fragment {
+public class SetEdit extends Fragment {
 
     private FragmentRepetitionsEditBinding binding;
 
@@ -45,12 +45,12 @@ public class RepEdit extends Fragment {
             try {
                 float weight = Float.parseFloat(weightScanner.getText().toString());
                 byte repetitions= Byte.parseByte(repetitionsScanner.getText().toString());
-                DataManager.addRepetitions(new ExerciseType(repetitions,weight));
+                DataManager.addRepetitions(new Set(repetitions,weight));
             } catch (NumberFormatException e) {
                 ExceptionNotification.somethingWentWrong(getActivity(),"Enter valid numbers");
                 return;
             }
-            NavHostFragment.findNavController(RepEdit.this).navigate(R.id.action_repEdit_to_editExercise);
+            NavHostFragment.findNavController(SetEdit.this).navigate(R.id.action_repEdit_to_editExercise);
         }
     }
 }
