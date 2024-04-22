@@ -15,12 +15,13 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.androidgymapp.databinding.FragmentWorkoutEditBinding;
 
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class WorkoutEdit extends Fragment {
 
@@ -93,12 +94,12 @@ public class WorkoutEdit extends Fragment {
         LocalDate date=null;
         LocalTime time1=null;
         try {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                date = LocalDate.parse(data);
-                time1= LocalTime.parse(time);
-            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
+            date = LocalDate.parse(data,formatter);
+            time1= LocalTime.parse(time);
+
         }
-        catch (DateTimeException e){
+        catch (Exception e){
             ExceptionNotification.somethingWentWrong(getActivity(),"Incorrect date or time");
             return;
         }

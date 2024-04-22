@@ -17,6 +17,8 @@ public class Exercise {
         return repetitions.stream().mapToInt(v-> v.getRepetitions()).sum();
     }
     public String getRepetitionsString(){
+        if (repetitions.isEmpty())
+            return "";
         StringBuilder sb =new StringBuilder();
         sb.append(repetitions.get(0).getRepetitions());
         for (int i = 1; i<repetitions.size();i++) {
@@ -25,7 +27,10 @@ public class Exercise {
         return sb.toString();
     }
     public Double getAvgWeight(){
-        return new BigDecimal((repetitions.stream().mapToDouble(v->v.getWeight()*v.getRepetitions()).sum()/getRepetitions()*100)/100).setScale(2,RoundingMode.HALF_EVEN).toBigInteger().doubleValue();
+        if (repetitions.isEmpty())
+            return 0.0;
+        else
+            return new BigDecimal((repetitions.stream().mapToDouble(v->v.getWeight()*v.getRepetitions()).sum()/getRepetitions()*100)/100).setScale(2,RoundingMode.HALF_EVEN).toBigInteger().doubleValue();
     }
     public int getNumberOfSets(){
         return repetitions.size();

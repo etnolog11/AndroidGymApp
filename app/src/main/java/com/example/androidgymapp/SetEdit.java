@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.androidgymapp.databinding.FragmentRepetitionsEditBinding;
+import com.example.androidgymapp.databinding.FragmentSetsEditBinding;
 
 public class SetEdit extends Fragment {
 
-    private FragmentRepetitionsEditBinding binding;
+    private FragmentSetsEditBinding binding;
 
     @Override
     public View onCreateView(
@@ -22,7 +22,7 @@ public class SetEdit extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentRepetitionsEditBinding.inflate(inflater, container, false);
+        binding = FragmentSetsEditBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
