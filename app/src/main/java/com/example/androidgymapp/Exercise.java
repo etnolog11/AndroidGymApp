@@ -16,6 +16,9 @@ public class Exercise {
     public int getRepetitions(){
         return repetitions.stream().mapToInt(v-> v.getRepetitions()).sum();
     }
+    public  List<Set> getSets(){
+        return repetitions;
+    }
     public String getRepetitionsString(){
         if (repetitions.isEmpty())
             return "";

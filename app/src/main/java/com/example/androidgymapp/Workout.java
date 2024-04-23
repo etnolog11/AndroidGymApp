@@ -31,4 +31,8 @@ public class Workout {
     public int getDurationInMinutes() {
         return durationInMinutes;
     }
+
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
 }

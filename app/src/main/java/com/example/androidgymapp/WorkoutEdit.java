@@ -104,10 +104,16 @@ public class WorkoutEdit extends Fragment {
             return;
         }
         LocalDateTime dateTime= date.atTime(time1);
-        DataManager.addWorkout(new Workout(dateTime,lengthint,scoreint,name,DataManager.allExercises));
+        Workout wrk =new Workout(dateTime,lengthint,scoreint,name,DataManager.allExercises);
+        DataManager.addWorkout(wrk);
+        DataBaseHelper db= new DataBaseHelper(this.getContext());
+        if (db.addWorkout(wrk)){
+            ExceptionNotification.somethingWentWrong(getActivity(),"Success");
+        }
 
         NavHostFragment.findNavController(WorkoutEdit.this)
                     .navigate(R.id.action_workoutEdit_to_FirstFragment);
+
     }
 
 }
