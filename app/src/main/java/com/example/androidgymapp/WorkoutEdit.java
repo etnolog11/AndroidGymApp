@@ -107,10 +107,7 @@ public class WorkoutEdit extends Fragment {
         Workout wrk =new Workout(dateTime,lengthint,scoreint,name,DataManager.allExercises);
         DataManager.addWorkout(wrk);
         DataBaseHelper db= new DataBaseHelper(this.getContext());
-        if (db.addWorkout(wrk)){
-            ExceptionNotification.somethingWentWrong(getActivity(),"Success");
-        }
-
+        db.addWorkout(wrk);
         NavHostFragment.findNavController(WorkoutEdit.this)
                     .navigate(R.id.action_workoutEdit_to_FirstFragment);
 

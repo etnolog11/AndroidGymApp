@@ -7,6 +7,7 @@ public class Workout {
     private List<Exercise> exercises;
     private byte score;
     private  String name;
+    private  long workoutID;
 
     Workout(LocalDateTime start,int durationInMinutes, byte score,String name,List<Exercise> exer){
         startDateTime= start;
@@ -14,6 +15,14 @@ public class Workout {
         this.score= score;
         this.name=name;
         exercises=exer;
+    }
+    Workout(LocalDateTime start,int durationInMinutes, byte score,String name,List<Exercise> exer, long id){
+        startDateTime= start;
+        this.durationInMinutes=durationInMinutes;
+        this.score= score;
+        this.name=name;
+        exercises=exer;
+        workoutID=id;
     }
 
     public String getName() {
@@ -34,5 +43,13 @@ public class Workout {
 
     public List<Exercise> getExercises() {
         return exercises;
+    }
+
+    public long getWorkoutID() {
+        return workoutID;
+    }
+
+    public void setWorkoutID(long workoutID) {
+        this.workoutID = workoutID;
     }
 }

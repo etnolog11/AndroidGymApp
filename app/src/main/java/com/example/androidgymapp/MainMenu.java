@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -26,8 +27,16 @@ public class MainMenu extends Fragment {
     ) {
         binding = FragmentMainMenuBinding.inflate(inflater, container, false);
         listView=(ListView) binding.getRoot().findViewById(R.id.workout_list);
+        DataBaseHelper db= new DataBaseHelper(getContext());
+        DataManager.setWorkouts(db.getWorkoutsFromDB());
         CustomBaseAdapterWorkouts adapter= new CustomBaseAdapterWorkouts(getContext(),DataManager.getWorkouts());
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("Hello!", "Clicked! YAY!");
+            }
+        });
         return binding.getRoot();
 
     }

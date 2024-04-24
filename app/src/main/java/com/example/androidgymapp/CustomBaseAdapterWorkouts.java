@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.util.Log;
+
 
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class CustomBaseAdapterWorkouts extends BaseAdapter {
         inflater=LayoutInflater.from(ctx);
         data=workouts;
     }
+
+
+
     @Override
     public int getCount() {
         return data.size();

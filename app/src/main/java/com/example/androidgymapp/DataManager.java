@@ -26,6 +26,9 @@ public class DataManager {
     public static void setExercises(ArrayList<Set> newArray){
         sets=newArray;
     }
+    public static void setWorkouts(ArrayList<Workout> newArray){
+        workouts=newArray;
+    }
 
     public static List<Workout> getWorkouts() {
         return workouts;
@@ -46,4 +49,11 @@ public class DataManager {
     }
 
     public static List<Set> getSets(){return sets;}
+    public static void update(){
+
+        sets = new ArrayList<>();
+        allExercises= new ArrayList<>();
+        workouts = new ArrayList<>();
+
+    }
 }

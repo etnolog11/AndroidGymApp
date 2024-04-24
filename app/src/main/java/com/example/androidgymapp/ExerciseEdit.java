@@ -62,7 +62,6 @@ public class ExerciseEdit extends Fragment {
         binding = null;
     }
     private void addExercise(View view){
-
         DataManager.addExercise(new Exercise(DataManager.sets,DataManager.getExerciseType()));
 
         NavHostFragment.findNavController(ExerciseEdit.this)

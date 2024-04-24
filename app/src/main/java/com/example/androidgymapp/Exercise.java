@@ -4,11 +4,19 @@ import java.util.List;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 public class Exercise {
+    private long exerciseId;
+    private long workoutId;
     private String name;
     private List<Set> repetitions;
     Exercise(List<Set> reps, String name){
         repetitions=reps;
         this.name=name;
+    }
+    Exercise(List<Set> reps, String name,long exerciseId, long workoutId){
+        repetitions=reps;
+        this.name=name;
+        this.workoutId=workoutId;
+        this.exerciseId=exerciseId;
     }
     public String getName(){
         return name;
@@ -40,5 +48,21 @@ public class Exercise {
     }
     public void addSet(byte reps,float weight){
         repetitions.add(new Set(reps,weight));
+    }
+
+    public long getExerciseId() {
+        return exerciseId;
+    }
+
+    public void setExerciseId(long exerciseId) {
+        this.exerciseId = exerciseId;
+    }
+
+    public long getWorkoutId() {
+        return workoutId;
+    }
+
+    public void setWorkoutId(long workoutId) {
+        this.workoutId = workoutId;
     }
 }

@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Spannable;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     DataBaseHelper(Context context ){
@@ -101,9 +105,43 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
 
         // Close the database connection
-        db.close();
-
         return Id;
+    }
+    public  ArrayList<Workout> getWorkoutsFromDB(){
+        ArrayList<Workout> workouts= new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorWorkouts =db.rawQuery("SELECT * FROM workouts ;",null);
+        if (cursorWorkouts.moveToFirst()){
+        do{
+            workouts.add(new Workout(LocalDateTime.parse(cursorWorkouts.getString(1)),
+                    cursorWorkouts.getInt(2), (byte)cursorWorkouts.getInt(3),
+                    cursorWorkouts.getString(4),getExercisesFromWorkoutDB(cursorWorkouts.getInt(0)),cursorWorkouts.getLong(0)));
+
+        }
+                while (cursorWorkouts.moveToNext());}
+        return workouts;
+    };
+    public ArrayList<Exercise> getExercisesFromWorkoutDB(int id){
+        ArrayList<Exercise> exercises= new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorExercises =db.rawQuery("SELECT * FROM exercises WHERE workout_parent_id="+id+";",null);
+        if (cursorExercises.moveToFirst()){
+            do{
+                exercises.add(new Exercise(getSetsFromWorkoutDB(cursorExercises.getInt(0)), cursorExercises.getString(2),cursorExercises.getLong(0),id));
+            }
+            while (cursorExercises.moveToNext());}
+        return exercises;
+    };
+    public ArrayList<Set> getSetsFromWorkoutDB(int exerciseId){
+        ArrayList<Set> sets =new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorSets = db.rawQuery("SELECT * FROM sets WHERE exercise_parent_id = "+exerciseId+";",null);
+        if (cursorSets.moveToFirst()){
+            do{
+                sets.add(new Set((byte) cursorSets.getInt(3),cursorSets.getFloat(2),cursorSets.getLong(0),exerciseId));
+            }
+            while (cursorSets.moveToNext());}
+        return sets;
     }
 
 }
