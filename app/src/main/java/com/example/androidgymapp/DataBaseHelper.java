@@ -9,6 +9,7 @@ import android.text.Spannable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
@@ -142,6 +143,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             }
             while (cursorSets.moveToNext());}
         return sets;
+    }
+    public void deleteWorkoutById(long idToDelete){
+        SQLiteDatabase db =getWritableDatabase();
+        db.execSQL("DELETE FROM workouts WHERE workout_id="+idToDelete+";");
+        Cursor parentId= db.rawQuery("SELECT workout_parent_id FROM exercises WHERE workout_parent_id="+idToDelete+";",null);
+        if (parentId.getCount()==0||!parentId.moveToFirst()){
+            db.close();
+            parentId.close();
+            return;
+        }
+        long[] idsOfExercises=new long [parentId.getCount()];
+        int i=0;
+        do{
+            idsOfExercises[i]=parentId.getLong(0);
+            i++;
+        }
+        while (parentId.moveToNext());
+        parentId.close();
+        db.execSQL("DELETE FROM exercises WHERE workout_parent_id="+idToDelete+";");
+
+        String [] values= new String[idsOfExercises.length];
+        for (i =0;i< values.length;i++){
+            values[i]=Long.toString(idsOfExercises[i]);
+        }
+         String str= String.join(" , ",values);
+         str=str.substring(1,str.length()-1);
+         db.execSQL("DELETE FROM sets WHERE exercise_parent_id in ("+str+");");
+        db.close();
     }
 
 }

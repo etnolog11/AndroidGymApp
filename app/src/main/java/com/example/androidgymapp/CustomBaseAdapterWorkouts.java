@@ -6,18 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.util.Log;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomBaseAdapterWorkouts extends BaseAdapter {
     Context context;
     LayoutInflater inflater;
-    List<Workout> data;
-    CustomBaseAdapterWorkouts(Context ctx, List<Workout> workouts){
+    ArrayList<Workout> data;
+    CustomBaseAdapterWorkouts(Context ctx, ArrayList<Workout> workouts){
         context=ctx;
         inflater=LayoutInflater.from(ctx);
         data=workouts;
@@ -55,7 +54,10 @@ public class CustomBaseAdapterWorkouts extends BaseAdapter {
         Button deletebutton= (Button) convertView.findViewById(R.id.delete_button);
         View finalConvertView = convertView;
         deletebutton.setOnClickListener(v->{
-            DataManager.getWorkouts().remove(position);
+
+            long idToDelete= DataManager.getWorkouts().remove(position).getWorkoutID();
+            DataBaseHelper db = new DataBaseHelper(context);
+            db.deleteWorkoutById(idToDelete);
             notifyDataSetChanged();
             });
         return convertView;

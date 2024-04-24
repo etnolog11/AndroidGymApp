@@ -6,10 +6,10 @@ import java.util.List;
 
 public class DataManager {
 
-    private static List<Workout> workouts= new ArrayList<>();
-    public static List<Set> sets= new ArrayList<>();
-    public static List<Exercise> allExercises= new ArrayList<>();
-    private static String[] exerciseTypes= {"Weighted Squat","Weighted Pull Up","Weighted Dip"};
+    private static ArrayList<Workout> workouts= new ArrayList<>();
+    public static ArrayList<Set> sets= new ArrayList<>();
+    public static ArrayList<Exercise> allExercises= new ArrayList<>();
+    private static String[] exerciseTypes= {"Lat Pulldown", "Shoulder Press","Row","Chest Press","Weighted Squat","Weighted Pull Up","Weighted Dip"};
     private static String exerciseType= "";
     public static void addWorkout(Workout workout){
         workouts.add(workout);
@@ -30,10 +30,10 @@ public class DataManager {
         workouts=newArray;
     }
 
-    public static List<Workout> getWorkouts() {
+    public static ArrayList<Workout> getWorkouts() {
         return workouts;
     }
-    public static List<Exercise> getExercises() {
+    public static ArrayList<Exercise> getExercises() {
         return allExercises;
     }
 
