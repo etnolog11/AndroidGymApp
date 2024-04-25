@@ -53,4 +53,24 @@ public class Workout {
     public void setWorkoutID(long workoutID) {
         this.workoutID = workoutID;
     }
+
+    public void setExercises(ArrayList<Exercise> exercises) {
+        this.exercises = exercises;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setScore(byte score) {
+        this.score = score;
+    }
+
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
+    }
 }

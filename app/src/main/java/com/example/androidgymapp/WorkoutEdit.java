@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class WorkoutEdit extends Fragment {
@@ -41,10 +42,10 @@ public class WorkoutEdit extends Fragment {
         if (workoutEdited==null)
         {
             listView.setAdapter(new CustomBaseAdapterExercises(getContext(),DataManager.allExercises));
-            Log.i("ojfshjl","workout is null");
+            Log.i("WorkoutEdit","workout to edit is null");
         }
         else{
-            Log.i("ojfshjl","workout is not null");
+            Log.i("WorkoutEdit","workout to edit is not null");
             listView.setAdapter(new CustomBaseAdapterExercises(getContext(),workoutEdited.getExercises()));
             TextView dataEntry= (TextView) view.findViewById(R.id.input_date);
             TextView timeEntry= (TextView) view.findViewById(R.id.input_time);
@@ -132,10 +133,22 @@ public class WorkoutEdit extends Fragment {
             return;
         }
         LocalDateTime dateTime= date.atTime(time1);
+        Workout workout =DataManager.getWorkoutBeingEdited();
+        DataBaseHelper db= new DataBaseHelper(this.getContext());
+        if (workout==null){
         Workout wrk =new Workout(dateTime,lengthint,scoreint,name,DataManager.allExercises);
         DataManager.addWorkout(wrk);
-        DataBaseHelper db= new DataBaseHelper(this.getContext());
-        db.addWorkout(wrk);
+        db.addWorkout(wrk);}
+        else{
+            workout.setStartDateTime(dateTime);
+            workout.setDurationInMinutes(lengthint);
+            workout.setScore(scoreint);
+            workout.setName(name);
+            workout.setExercises(DataManager.allExercises);
+            DataManager.setExercises(new ArrayList<>());
+            DataManager.setWorkoutBeingEdited(null);
+            db.updateWorkout(workout);
+        }
         NavHostFragment.findNavController(WorkoutEdit.this)
                     .navigate(R.id.action_workoutEdit_to_FirstFragment);
 

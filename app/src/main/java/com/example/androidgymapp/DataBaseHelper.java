@@ -173,4 +173,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateWorkout(Workout workout){
+        SQLiteDatabase db =getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("date_time", workout.getStartDateTime().toString());
+        cv.put("duration_in_min", workout.getDurationInMinutes());
+        cv.put("score", workout.getScore());
+        cv.put("name",workout.getName());
+        db.update("workouts", cv,"workout_id = "+workout.getWorkoutID(),null);
+        db.close();
+
+    }
+
 }

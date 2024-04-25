@@ -52,7 +52,6 @@ public class CustomBaseAdapterWorkouts extends BaseAdapter {
         datetimetxtview.setText(entry.getStartDateTime().toString());
         lengthtxtview.setText(Integer.toString(entry.getDurationInMinutes()));
         Button deletebutton= (Button) convertView.findViewById(R.id.delete_button);
-        View finalConvertView = convertView;
         deletebutton.setOnClickListener(v->{
 
             long idToDelete= DataManager.getWorkouts().remove(position).getWorkoutID();
