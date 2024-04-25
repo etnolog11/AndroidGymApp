@@ -9,6 +9,9 @@ public class DataManager {
     private static ArrayList<Workout> workouts= new ArrayList<>();
     public static ArrayList<Set> sets= new ArrayList<>();
     public static ArrayList<Exercise> allExercises= new ArrayList<>();
+    public static Workout workoutBeingEdited=null;
+    public static Exercise exerciseBeingEdited = null;
+    public static Set setBeingEdited= null;
     private static String[] exerciseTypes= {"Lat Pulldown", "Shoulder Press","Row","Chest Press","Weighted Squat","Weighted Pull Up","Weighted Dip"};
     private static String exerciseType= "";
     public static void addWorkout(Workout workout){
@@ -23,8 +26,11 @@ public class DataManager {
     public static void addRepetitions(Set rep){
         sets.add(rep);
     }
-    public static void setExercises(ArrayList<Set> newArray){
+    public static void setSets(ArrayList<Set> newArray){
         sets=newArray;
+    }
+    public static void setExercises(ArrayList<Exercise> newArray){
+        allExercises=newArray;
     }
     public static void setWorkouts(ArrayList<Workout> newArray){
         workouts=newArray;
@@ -46,6 +52,30 @@ public class DataManager {
     }
     public static void setExerciseType(String type){
         exerciseType=type;
+    }
+
+    public static Exercise getExerciseBeingEdited() {
+        return exerciseBeingEdited;
+    }
+
+    public static Set getSetBeingEdited() {
+        return setBeingEdited;
+    }
+
+    public static Workout getWorkoutBeingEdited() {
+        return workoutBeingEdited;
+    }
+
+    public static void setExerciseBeingEdited(Exercise exerciseBeingEdited) {
+        DataManager.exerciseBeingEdited = exerciseBeingEdited;
+    }
+
+    public static void setSetBeingEdited(Set setBeingEdited) {
+        DataManager.setBeingEdited = setBeingEdited;
+    }
+
+    public static void setWorkoutBeingEdited(Workout workoutBeingEdited) {
+        DataManager.workoutBeingEdited = workoutBeingEdited;
     }
 
     public static List<Set> getSets(){return sets;}

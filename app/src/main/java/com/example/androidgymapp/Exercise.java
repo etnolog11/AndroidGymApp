@@ -38,7 +38,7 @@ public class Exercise {
         return sb.toString();
     }
     public Double getAvgWeight(){
-        if (repetitions.isEmpty())
+        if (getRepetitions()==0)
             return 0.0;
         else
             return new BigDecimal((repetitions.stream().mapToDouble(v->v.getWeight()*v.getRepetitions()).sum()/getRepetitions()*100)/100).setScale(2,RoundingMode.HALF_EVEN).toBigInteger().doubleValue();

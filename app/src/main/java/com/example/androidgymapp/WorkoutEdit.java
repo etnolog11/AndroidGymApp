@@ -2,6 +2,7 @@ package com.example.androidgymapp;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,35 @@ public class WorkoutEdit extends Fragment {
 
         binding = FragmentWorkoutEditBinding.inflate(inflater, container, false);
         ListView listView=(ListView)binding.getRoot().findViewById(R.id.exercise_list_view);
-        listView.setAdapter(new CustomBaseAdapterExercises(getContext(),DataManager.allExercises));
-        return binding.getRoot();
+        Workout workoutEdited = DataManager.getWorkoutBeingEdited();
+        View view= binding.getRoot();
+        if (workoutEdited==null)
+        {
+            listView.setAdapter(new CustomBaseAdapterExercises(getContext(),DataManager.allExercises));
+            Log.i("ojfshjl","workout is null");
+        }
+        else{
+            Log.i("ojfshjl","workout is not null");
+            listView.setAdapter(new CustomBaseAdapterExercises(getContext(),workoutEdited.getExercises()));
+            TextView dataEntry= (TextView) view.findViewById(R.id.input_date);
+            TextView timeEntry= (TextView) view.findViewById(R.id.input_time);
+            TextView lengthEntry= (TextView) view.findViewById(R.id.input_length);
+            TextView nameEntry =   (TextView) view.findViewById(R.id.input_name);
+            TextView scoreEntry =   (TextView) view.findViewById(R.id.input_score);
+            LocalDateTime dateTime = workoutEdited.getStartDateTime();
+            String Day = (dateTime.getDayOfMonth()<10?"0":"")+Integer.toString(dateTime.getDayOfMonth());
+            String Month = (dateTime.getMonthValue()<10?"0":"")+Integer.toString(dateTime.getMonthValue());
+            String date = Day+Month+dateTime.getYear();
+            String hour =(dateTime.getHour()<10?"0":"")+ Integer.toString(dateTime.getHour());
+            String minute =(dateTime.getMinute()<10?"0":"")+ Integer.toString(dateTime.getMinute());
+            String time =hour+":"+minute;
+            dataEntry.setText(date);
+            timeEntry.setText(time);
+            lengthEntry.setText(Integer.toString(workoutEdited.getDurationInMinutes()));
+            nameEntry.setText(workoutEdited.getName());
+            scoreEntry.setText(Byte.toString(workoutEdited.getScore()));
+        }
+        return view;
 
     }
 

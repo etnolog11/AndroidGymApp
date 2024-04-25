@@ -34,7 +34,10 @@ public class MainMenu extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Hello!", "Clicked! YAY!");
+                NavHostFragment.findNavController(MainMenu.this)
+                        .navigate(R.id.action_FirstFragment_to_workoutEdit);
+                DataManager.setWorkoutBeingEdited(adapter.data.get(position));
+                DataManager.setExercises(adapter.data.get(position).getExercises());
             }
         });
         return binding.getRoot();
