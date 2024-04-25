@@ -46,7 +46,10 @@ public class CustomBaseAdapterExercises extends BaseAdapter {
         repetitions.setText(exerciseEntry.getRepetitionsString());
         avgWeight.setText(exerciseEntry.getAvgWeight().toString());
         Button deleteButton= (Button) convertView.findViewById(R.id.delete_exercise);
-        deleteButton.setOnClickListener(v->{DataManager.getExercises().remove(position);
+        deleteButton.setOnClickListener(v->{
+            long idToDelete= DataManager.getExercises().remove(position).getExerciseId();
+            DataBaseHelper db = new DataBaseHelper(context);
+            db.deleteExerciseById(idToDelete);
             notifyDataSetChanged();
         });
         return convertView;

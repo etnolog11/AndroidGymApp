@@ -45,7 +45,11 @@ public class CustomBaseAdapterRepetitions extends BaseAdapter {
         weight.setText(Float.toString(setEntry.getWeight()));
         repetitions.setText(Byte.toString(setEntry.getRepetitions()));
         Button deleteButton= (Button) convertView.findViewById(R.id.delete_button_set);
-        deleteButton.setOnClickListener(v->{DataManager.getSets().remove(position);
+        deleteButton.setOnClickListener(v->{
+
+            long idToDelete=DataManager.getSets().remove(position).getSetId();
+            DataBaseHelper db = new DataBaseHelper(context);
+            db.deleteSetById(idToDelete);
             notifyDataSetChanged();
         });
         return convertView;

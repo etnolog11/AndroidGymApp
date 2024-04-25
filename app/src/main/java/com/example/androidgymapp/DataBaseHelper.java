@@ -173,6 +173,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteExerciseById(long exerciseId){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("exercises","exercise_id = "+exerciseId,null);
+        db.delete("sets", "exercise_parent_id = "+exerciseId,null);
+        db.close();
+    }
+    public void deleteSetById(long setId){
+        SQLiteDatabase db =getWritableDatabase();
+        db.delete("sets","set_id = "+setId,null);
+        db.close();
+    }
+
     public void updateWorkout(Workout workout){
         SQLiteDatabase db =getWritableDatabase();
         ContentValues cv = new ContentValues();
