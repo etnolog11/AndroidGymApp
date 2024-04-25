@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.Spannable;
+import android.util.Log;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
     public boolean addWorkout(Workout workout){
+        Log.i("DataBaseHelper", "Adding a workout to database");
         SQLiteDatabase db= getWritableDatabase();
         ContentValues cv= new ContentValues();
         cv.put("date_time", workout.getStartDateTime().toString());
@@ -68,7 +70,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         db.close();
         return  res;}
-    public boolean addExercise(Exercise exercise,SQLiteDatabase db, long workoutID){
+    private boolean addExercise(Exercise exercise,SQLiteDatabase db, long workoutID){
         ContentValues cv= new ContentValues();
         cv.put("type", exercise.getName());
         cv.put("workout_parent_id", (int)workoutID);
@@ -83,8 +85,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             res&=addSet(element,db,exerciseId);
         }
         return  res;}
+    public boolean addExerciseWithParentId(Exercise exercise,long workoutId ){
+        SQLiteDatabase db= this.getWritableDatabase();
+        boolean res = addExercise(exercise,db,workoutId);
+        db.close();
+        return res;
+    }
 
-    public boolean addSet(Set set, SQLiteDatabase db, long exerciseId){
+    private boolean addSet(Set set, SQLiteDatabase db, long exerciseId){
         ContentValues cv= new ContentValues();
         cv.put("weight", set.getWeight());
         cv.put("exercise_parent_id", (int)exerciseId);
@@ -145,6 +153,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return sets;
     }
     public void deleteWorkoutById(long idToDelete){
+        Log.i("DataBaseHelper", "Deleting a workout from database");
         SQLiteDatabase db =getWritableDatabase();
         db.execSQL("DELETE FROM workouts WHERE workout_id="+idToDelete+";");
         Cursor parentId= db.rawQuery("SELECT workout_parent_id FROM exercises WHERE workout_parent_id="+idToDelete+";",null);
@@ -174,18 +183,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteExerciseById(long exerciseId){
+        Log.i("DataBaseHelper", "Deleting an exercise from database");
         SQLiteDatabase db = getWritableDatabase();
         db.delete("exercises","exercise_id = "+exerciseId,null);
         db.delete("sets", "exercise_parent_id = "+exerciseId,null);
         db.close();
     }
     public void deleteSetById(long setId){
+        Log.i("DataBaseHelper", "Deleting a set from database");
         SQLiteDatabase db =getWritableDatabase();
         db.delete("sets","set_id = "+setId,null);
         db.close();
     }
 
     public void updateWorkout(Workout workout){
+        Log.i("DataBaseHelper", "Updating a workout from database");
         SQLiteDatabase db =getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("date_time", workout.getStartDateTime().toString());
@@ -193,6 +205,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put("score", workout.getScore());
         cv.put("name",workout.getName());
         db.update("workouts", cv,"workout_id = "+workout.getWorkoutID(),null);
+        db.close();
+
+    }
+    public void updateExercise(Exercise exercise){
+        Log.i("DataBaseHelper", "Updating an exercise from database");
+        SQLiteDatabase db =getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("type", exercise.getName());
+        db.update("exercises", cv,"exercise_id = "+exercise.getExerciseId(),null);
         db.close();
 
     }

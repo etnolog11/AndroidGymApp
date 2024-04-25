@@ -22,7 +22,9 @@ public class CustomBaseAdapterWorkouts extends BaseAdapter {
         data=workouts;
     }
 
-
+    public ArrayList<Workout> getData() {
+        return data;
+    }
 
     @Override
     public int getCount() {

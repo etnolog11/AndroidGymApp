@@ -8,19 +8,25 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Base64;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomBaseAdapterExercises extends BaseAdapter {
     Context context;
     LayoutInflater inflater;
-    List<Exercise> data;
-    CustomBaseAdapterExercises(Context ctx, List<Exercise> exercises){
+    ArrayList<Exercise> data;
+    CustomBaseAdapterExercises(Context ctx, ArrayList<Exercise> exercises){
         context=ctx;
         inflater=LayoutInflater.from(ctx);
         data=exercises;
     }
+
+    public ArrayList<Exercise> getData() {
+        return data;
+    }
+
     @Override
+
     public int getCount() {
         return data.size();
     }

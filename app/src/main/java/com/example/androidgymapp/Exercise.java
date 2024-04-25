@@ -1,5 +1,6 @@
 package com.example.androidgymapp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -7,12 +8,12 @@ public class Exercise {
     private long exerciseId;
     private long workoutId;
     private String name;
-    private List<Set> repetitions;
-    Exercise(List<Set> reps, String name){
+    private ArrayList<Set> repetitions;
+    Exercise(ArrayList<Set> reps,String name){
         repetitions=reps;
         this.name=name;
     }
-    Exercise(List<Set> reps, String name,long exerciseId, long workoutId){
+    Exercise(ArrayList<Set> reps, String name,long exerciseId, long workoutId){
         repetitions=reps;
         this.name=name;
         this.workoutId=workoutId;
@@ -24,7 +25,7 @@ public class Exercise {
     public int getRepetitions(){
         return repetitions.stream().mapToInt(v-> v.getRepetitions()).sum();
     }
-    public  List<Set> getSets(){
+    public ArrayList<Set> getSets(){
         return repetitions;
     }
     public String getRepetitionsString(){
@@ -64,5 +65,9 @@ public class Exercise {
 
     public void setWorkoutId(long workoutId) {
         this.workoutId = workoutId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,14 +42,16 @@ public class WorkoutEdit extends Fragment {
         ListView listView=(ListView)binding.getRoot().findViewById(R.id.exercise_list_view);
         Workout workoutEdited = DataManager.getWorkoutBeingEdited();
         View view= binding.getRoot();
+        CustomBaseAdapterExercises adapter = new CustomBaseAdapterExercises(getContext(),DataManager.allExercises);
         if (workoutEdited==null)
         {
-            listView.setAdapter(new CustomBaseAdapterExercises(getContext(),DataManager.allExercises));
+            listView.setAdapter(adapter);
             Log.i("WorkoutEdit","workout to edit is null");
         }
         else{
             Log.i("WorkoutEdit","workout to edit is not null");
-            listView.setAdapter(new CustomBaseAdapterExercises(getContext(),workoutEdited.getExercises()));
+            adapter =new CustomBaseAdapterExercises(getContext(),workoutEdited.getExercises());
+            listView.setAdapter(adapter);
             TextView dataEntry= (TextView) view.findViewById(R.id.input_date);
             TextView timeEntry= (TextView) view.findViewById(R.id.input_time);
             TextView lengthEntry= (TextView) view.findViewById(R.id.input_length);
@@ -65,6 +70,17 @@ public class WorkoutEdit extends Fragment {
             nameEntry.setText(workoutEdited.getName());
             scoreEntry.setText(Byte.toString(workoutEdited.getScore()));
         }
+        final CustomBaseAdapterExercises finadapter= adapter;
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NavHostFragment.findNavController(WorkoutEdit.this)
+                        .navigate(R.id.action_workoutEdit_to_editExercise);
+                DataManager.setExerciseBeingEdited(finadapter.getData().get(position));
+                DataManager.setSets(finadapter.getData().get(position).getSets());
+                DataManager.setExerciseType(finadapter.getData().get(position).getName());
+            }
+        });
         return view;
 
     }

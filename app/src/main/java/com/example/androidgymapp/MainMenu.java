@@ -36,8 +36,8 @@ public class MainMenu extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NavHostFragment.findNavController(MainMenu.this)
                         .navigate(R.id.action_FirstFragment_to_workoutEdit);
-                DataManager.setWorkoutBeingEdited(adapter.data.get(position));
-                DataManager.setExercises(adapter.data.get(position).getExercises());
+                DataManager.setWorkoutBeingEdited(adapter.getData().get(position));
+                DataManager.setExercises(adapter.getData().get(position).getExercises());
             }
         });
         return binding.getRoot();

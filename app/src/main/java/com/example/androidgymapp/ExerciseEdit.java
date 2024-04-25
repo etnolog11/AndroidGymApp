@@ -1,5 +1,6 @@
 package com.example.androidgymapp;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class ExerciseEdit extends Fragment {
 
         binding = FragmentExcerciseEditBinding.inflate(inflater, container, false);
 
+
         return binding.getRoot();
 
     }
@@ -51,9 +53,13 @@ public class ExerciseEdit extends Fragment {
         spinner.setAdapter(new ArrayAdapter<>(this.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,DataManager.getExerciseTypes()));
         ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter();
         int spinnerPosition = myAdap.getPosition(DataManager.getExerciseType());
+         Exercise exercise = DataManager.getExerciseBeingEdited();
+        if (exercise!=null){
+            spinnerPosition=myAdap.getPosition(exercise.getName());
+        }
         spinner.setSelection(spinnerPosition);
         binding.addReps.setOnClickListener(v -> NavHostFragment.findNavController(ExerciseEdit.this).navigate(R.id.action_editExercise_to_repEdit));
-        binding.saveExercise.setOnClickListener(v->addExercise(view));
+        binding.saveExercise.setOnClickListener(v->addOrUpdateExercise());
     }
 
     @Override
@@ -61,10 +67,33 @@ public class ExerciseEdit extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    private void addExercise(View view){
-        DataManager.addExercise(new Exercise(DataManager.sets,DataManager.getExerciseType()));
-
+    public void addOrUpdateExercise(){
+        if(DataManager.getExerciseBeingEdited()!=null){
+            updateExercise();
+        }
+        else{
+            addExercise();
+        }
+        DataManager.setExerciseBeingEdited(null);
         NavHostFragment.findNavController(ExerciseEdit.this)
                 .navigate(R.id.action_editExercise_to_workoutEdit);
+    }
+    private void updateExercise(){
+        DataBaseHelper db = new DataBaseHelper(getContext());
+        Exercise exercise=DataManager.getExerciseBeingEdited();
+        exercise.setName(DataManager.getExerciseType());
+        db.updateExercise(exercise);
+
+    }
+    private void addExercise(){
+        Workout workout = DataManager.getWorkoutBeingEdited();
+        Exercise exercise= new Exercise(DataManager.sets,DataManager.getExerciseType());
+        if (workout!=null){
+            DataBaseHelper db =new DataBaseHelper(getContext());
+            db.addExerciseWithParentId(exercise,DataManager.getWorkoutBeingEdited().getWorkoutID() );
+        }
+        DataManager.addExercise(exercise);
+
+
     }
 }
