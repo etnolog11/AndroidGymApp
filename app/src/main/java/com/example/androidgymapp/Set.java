@@ -4,8 +4,8 @@ package com.example.androidgymapp;
 public class Set {
     private byte repetitions;
     private float weight;
-    private long setId;
-    private long exerciseId;
+    private long setId = -1;
+    private long exerciseId = -1;
     Set(byte repetitions, float weight ){
         this.repetitions= repetitions;
         this.weight= weight;

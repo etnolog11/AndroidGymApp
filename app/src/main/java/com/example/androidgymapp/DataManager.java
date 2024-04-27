@@ -14,6 +14,8 @@ public class DataManager {
     public static Set setBeingEdited= null;
     private static String[] exerciseTypes= {"Lat Pulldown", "Shoulder Press","Row","Chest Press","Weighted Squat","Weighted Pull Up","Weighted Dip"};
     private static String exerciseType= "";
+    private static ArrayList<Set>  updatedOrAddedSets = new ArrayList<>();
+    private static ArrayList<Exercise>  updatedOrAddedExercises = new ArrayList<>();
     public static void addWorkout(Workout workout){
         workouts.add(workout);
         allExercises=new ArrayList<>();
@@ -21,6 +23,9 @@ public class DataManager {
     public static void addExercise(Exercise exercise){
         allExercises.add(exercise);
         sets=new ArrayList<>();
+    }
+    public static void addSet(Set set){
+        sets.add(set);
     }
 
     public static void addRepetitions(Set rep){
@@ -78,6 +83,33 @@ public class DataManager {
         DataManager.workoutBeingEdited = workoutBeingEdited;
     }
 
+    public  static  void setExerciseTypeToDefault(){
+        exerciseType="";
+    }
+
+
+    public static boolean removeUpdatedOrAddedExercises(Exercise exercise) {
+        return DataManager.updatedOrAddedExercises.remove(exercise);
+    }
+    public static boolean removeUpdatedOrAddedSets(Set set) {
+        return DataManager.updatedOrAddedSets.remove(set);
+    }
+
+    public static void addUpdatedOrAddedExercises(Exercise exercise) {
+        DataManager.updatedOrAddedExercises.add(exercise);
+    }
+
+    public static void addUpdatedOrAddedSets(Set set) {
+        DataManager.updatedOrAddedSets.add(set);
+    }
+
+    public static void clearUpdatedOrAddedExercise(){
+        DataManager.updatedOrAddedExercises = new ArrayList<>();
+    }
+
+    public static void clearUpdatedOrAddedSets(){
+        DataManager.updatedOrAddedSets = new ArrayList<>();
+    }
     public static List<Set> getSets(){return sets;}
     public static void update(){
 
@@ -86,6 +118,15 @@ public class DataManager {
         workouts = new ArrayList<>();
 
     }
+
+    public static ArrayList<Exercise> getUpdatedOrAddedExercises() {
+        return updatedOrAddedExercises;
+    }
+
+    public static ArrayList<Set> getUpdatedOrAddedSets() {
+        return updatedOrAddedSets;
+    }
+
     public static String getDataString(){
         StringBuilder sb = new StringBuilder();
         sb.append(workouts);
@@ -96,6 +137,8 @@ public class DataManager {
         sb.append(setBeingEdited);
         sb.append(exerciseTypes);
         sb.append(exerciseType);
+        sb.append(updatedOrAddedExercises);
+        sb.append(updatedOrAddedSets);
         return  sb.toString();
 
     }

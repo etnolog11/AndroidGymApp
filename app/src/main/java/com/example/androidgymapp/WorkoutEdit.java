@@ -153,8 +153,10 @@ public class WorkoutEdit extends Fragment {
         if (workout==null){
         Workout wrk =new Workout(dateTime,lengthint,scoreint,name,DataManager.allExercises);
         DataManager.addWorkout(wrk);
-        db.addWorkout(wrk);}
+        db.addWorkout(wrk);
+        Log.i("WorkoutEdit","Added Workout");}
         else{
+            Log.i("WorkoutEdit","Updated Workout");
             workout.setStartDateTime(dateTime);
             workout.setDurationInMinutes(lengthint);
             workout.setScore(scoreint);

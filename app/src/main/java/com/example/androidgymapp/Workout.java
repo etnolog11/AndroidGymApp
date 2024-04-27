@@ -8,7 +8,7 @@ public class Workout {
     private ArrayList<Exercise> exercises;
     private byte score;
     private  String name;
-    private  long workoutID;
+    private  long workoutID = -1;
 
     Workout(LocalDateTime start,int durationInMinutes, byte score,String name,ArrayList<Exercise> exer){
         startDateTime= start;

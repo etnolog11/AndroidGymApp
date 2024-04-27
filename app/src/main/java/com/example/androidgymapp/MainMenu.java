@@ -51,9 +51,10 @@ public class MainMenu extends Fragment {
                 NavHostFragment.findNavController(MainMenu.this)
                         .navigate(R.id.action_FirstFragment_to_workoutEdit)
         );
-        binding.stat.setOnClickListener(v ->
+        binding.stat.setOnClickListener(v ->{
                 NavHostFragment.findNavController(MainMenu.this)
-                        .navigate(R.id.action_FirstFragment_to_statistics)
+                        .navigate(R.id.action_FirstFragment_to_statistics);
+                        }
         );
     }
 

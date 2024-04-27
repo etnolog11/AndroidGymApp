@@ -83,6 +83,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         int exerciseId= (int)getLastInsertedId(db);
         for (Set element:exercise.getSets()) {
             res&=addSet(element,db,exerciseId);
+            DataManager.removeUpdatedOrAddedSets(element);
         }
         return  res;}
     public boolean addExerciseWithParentId(Exercise exercise,long workoutId ){
@@ -212,7 +213,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put("duration_in_min", workout.getDurationInMinutes());
         cv.put("score", workout.getScore());
         cv.put("name",workout.getName());
-        db.update("workouts", cv,"workout_id = "+workout.getWorkoutID(),null);
+        long workoutParentId = workout.getWorkoutID();
+        db.update("workouts", cv,"workout_id = "+workoutParentId,null);
+        for (Exercise exercise : DataManager.getUpdatedOrAddedExercises()){
+            long exerciseId = exercise.getExerciseId();
+            if (exerciseId==-1){
+                addExerciseWithParentId(exercise, workoutParentId);
+            }
+            else{
+                updateExercise(exercise);
+            }
+        }
+        DataManager.clearUpdatedOrAddedSets();
+        DataManager.clearUpdatedOrAddedExercise();
         db.close();
 
     }
@@ -221,7 +234,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db =getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("type", exercise.getName());
-        db.update("exercises", cv,"exercise_id = "+exercise.getExerciseId(),null);
+        long exerciseId= exercise.getExerciseId();
+        db.update("exercises", cv,"exercise_id = "+ exerciseId,null);
+        for (Set set : exercise.getSets()){
+            long setId = set.getSetId();
+            if (setId==-1){
+                addSetWithParentId(set, exerciseId);
+            }
+            else{
+                updateSet(set);
+            }
+        }
         db.close();
 
     }
@@ -233,5 +256,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put("repetitions", set.getRepetitions());
         db.update("sets", cv,"set_id = "+set.getSetId(),null);
         db.close();
+    }
+    public void clearDB(){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.delete("workouts","",null);
+        db.delete("exercises","",null);
+        db.delete("sets","",null);
+
     }
 }

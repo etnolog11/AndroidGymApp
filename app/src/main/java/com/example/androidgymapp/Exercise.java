@@ -7,8 +7,8 @@ import java.util.List;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 public class Exercise {
-    private long exerciseId;
-    private long workoutId;
+    private long exerciseId = -1;
+    private long workoutId = -1;
     private String name;
     private ArrayList<Set> repetitions;
     Exercise(ArrayList<Set> reps,String name){

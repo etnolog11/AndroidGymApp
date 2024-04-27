@@ -47,41 +47,35 @@ public class SetEdit extends Fragment {
         binding = null;
     }
 
-    public  void  addOrUpdate (View view){
-        Set set = DataManager.getSetBeingEdited();
-        TextView weightScanner= (TextView) view.findViewById(R.id.weight_input);
-        TextView repetitionsScanner= (TextView) view.findViewById(R.id.repetitions_input);
-        Log.i("DataBaseHelper", DataManager.getDataString());
+    public  void  addOrUpdate (View result){
+        TextView repsInput = (TextView) result.findViewById(R.id.repetitions_input);
+        TextView weightInput = (TextView) result.findViewById(R.id.weight_input);
+        float weight;
+        byte repetitions;
         try {
-            float weight = Float.parseFloat(weightScanner.getText().toString());
-            byte repetitions= Byte.parseByte(repetitionsScanner.getText().toString());
-            Exercise exercise = DataManager.getExerciseBeingEdited();
-            DataBaseHelper db =new DataBaseHelper(getContext());
-            if(set!=null)
-            {
-                set.setWeight(weight);
-                set.setRepetitions(repetitions);
-                db.updateSet(set);
-            }
-            else {
-                set = new Set(repetitions,weight);
-                if (exercise!=null) {
-                    db.addSetWithParentId(set,exercise.getExerciseId());
-                }
-                DataManager.addRepetitions(set);}
+            weight = Float.parseFloat(weightInput.getText().toString());
+            repetitions= Byte.parseByte(repsInput.getText().toString());
+
         } catch (NumberFormatException e) {
             ExceptionNotification.somethingWentWrong(getActivity(),"Enter valid numbers");
-            return;
+            return;}
+        Set set =DataManager.getSetBeingEdited();
+        if (set!=null){
+            set.setRepetitions(repetitions);
+            set.setWeight(weight);
         }
+        else{
+            set =new Set(repetitions,weight);
+            addSet(set);
+        }
+        if (!DataManager.getUpdatedOrAddedSets().contains(set))
+            DataManager.addUpdatedOrAddedSets(set);
+        DataManager.setSetBeingEdited(null);
         NavHostFragment.findNavController(SetEdit.this).navigate(R.id.action_repEdit_to_editExercise);
-
 
     }
     public void addSet(Set set){
-
-
-    }
-    public void addRep(Set set){
+        DataManager.addSet(set);
 
     }
 }

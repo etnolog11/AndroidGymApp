@@ -2,6 +2,7 @@ package com.example.androidgymapp;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,32 +79,30 @@ public class ExerciseEdit extends Fragment {
         binding = null;
     }
     public void addOrUpdateExercise(){
+        Exercise exercise;
         if(DataManager.getExerciseBeingEdited()!=null){
-            updateExercise();
+            exercise = updateExercise();
         }
         else{
-            addExercise();
+            exercise =addExercise();
         }
         DataManager.setExerciseBeingEdited(null);
+        DataManager.setExerciseTypeToDefault();
+        if (!DataManager.getUpdatedOrAddedExercises().contains(exercise) )
+            DataManager.addUpdatedOrAddedExercises(exercise);
         NavHostFragment.findNavController(ExerciseEdit.this)
                 .navigate(R.id.action_editExercise_to_workoutEdit);
     }
-    private void updateExercise(){
-        DataBaseHelper db = new DataBaseHelper(getContext());
+    private Exercise updateExercise(){
+        Log.i("ExerciseEdit", "Updated Exercise");
         Exercise exercise=DataManager.getExerciseBeingEdited();
         exercise.setName(DataManager.getExerciseType());
-        db.updateExercise(exercise);
-
+        return exercise;
     }
-    private void addExercise(){
-        Workout workout = DataManager.getWorkoutBeingEdited();
+    private Exercise addExercise(){
+        Log.i("ExerciseEdit", "Added Exercise");
         Exercise exercise= new Exercise(DataManager.sets,DataManager.getExerciseType());
-        if (workout!=null){
-            DataBaseHelper db =new DataBaseHelper(getContext());
-            db.addExerciseWithParentId(exercise,DataManager.getWorkoutBeingEdited().getWorkoutID() );
-        }
         DataManager.addExercise(exercise);
-
-
+        return exercise;
     }
 }
