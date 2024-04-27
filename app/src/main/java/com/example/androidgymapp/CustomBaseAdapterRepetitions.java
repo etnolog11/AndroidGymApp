@@ -10,16 +10,20 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomBaseAdapterRepetitions extends BaseAdapter {
     Context context;
     LayoutInflater inflater;
-    List<Set> data;
-    CustomBaseAdapterRepetitions(Context ctx, List<Set> exercises){
+    ArrayList<Set> data;
+    CustomBaseAdapterRepetitions(Context ctx, ArrayList<Set> exercises){
         context=ctx;
         inflater=LayoutInflater.from(ctx);
         data=exercises;
+    }
+    public ArrayList<Set> getData(){
+        return data;
     }
     @Override
     public int getCount() {

@@ -95,12 +95,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private boolean addSet(Set set, SQLiteDatabase db, long exerciseId){
         ContentValues cv= new ContentValues();
         cv.put("weight", set.getWeight());
+        cv.put("repetitions", set.getRepetitions());
         cv.put("exercise_parent_id", (int)exerciseId);
         long result=db.insert("sets",null,cv);
         if (result<0)
             return false;
 
         else return true;
+    }
+    public boolean addSetWithParentId(Set set,long exerciseId ){
+        Log.i("DataBaseHelper", "Addint a set to database: "+set.toString());
+        SQLiteDatabase db= this.getWritableDatabase();
+        boolean res = addSet(set,db,exerciseId);
+        db.close();
+        return res;
     }
 
     public long getLastInsertedId(SQLiteDatabase db) {
@@ -217,5 +225,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
 
     }
-
+    public void updateSet(Set set){
+        Log.i("DataBaseHelper", "Updating a set from database: "+set.toString());
+        SQLiteDatabase db =getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("weight", set.getWeight());
+        cv.put("repetitions", set.getRepetitions());
+        db.update("sets", cv,"set_id = "+set.getSetId(),null);
+        db.close();
+    }
 }

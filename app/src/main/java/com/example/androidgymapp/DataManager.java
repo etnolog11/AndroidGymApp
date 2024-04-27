@@ -86,4 +86,17 @@ public class DataManager {
         workouts = new ArrayList<>();
 
     }
+    public static String getDataString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(workouts);
+        sb.append(sets);
+        sb.append(allExercises);
+        sb.append(workoutBeingEdited);
+        sb.append(exerciseBeingEdited);
+        sb.append(setBeingEdited);
+        sb.append(exerciseTypes);
+        sb.append(exerciseType);
+        return  sb.toString();
+
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.androidgymapp;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.math.BigDecimal;
@@ -42,7 +44,8 @@ public class Exercise {
         if (getRepetitions()==0)
             return 0.0;
         else
-            return new BigDecimal((repetitions.stream().mapToDouble(v->v.getWeight()*v.getRepetitions()).sum()/getRepetitions()*100)/100).setScale(2,RoundingMode.HALF_EVEN).toBigInteger().doubleValue();
+
+            return ((double)(int)(repetitions.stream().mapToDouble(v->v.getWeight()*v.getRepetitions()).sum()/getRepetitions()*100))/100;
     }
     public int getNumberOfSets(){
         return repetitions.size();

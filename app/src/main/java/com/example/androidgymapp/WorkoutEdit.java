@@ -102,7 +102,6 @@ public class WorkoutEdit extends Fragment {
         binding = null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void addWorkout(View view){
         TextView dataEntry= (TextView) view.findViewById(R.id.input_date);
         TextView timeEntry= (TextView) view.findViewById(R.id.input_time);

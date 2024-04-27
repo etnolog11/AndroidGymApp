@@ -50,6 +50,15 @@ public class ExerciseEdit extends Fragment {
         });
 
         listView.setAdapter(new CustomBaseAdapterRepetitions(getContext(),DataManager.sets));
+        final CustomBaseAdapterRepetitions finadapter = (CustomBaseAdapterRepetitions) listView.getAdapter();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DataManager.setSetBeingEdited(finadapter.getData().get(position));
+                NavHostFragment.findNavController(ExerciseEdit.this)
+                        .navigate(R.id.action_editExercise_to_repEdit);
+            }
+        });
         spinner.setAdapter(new ArrayAdapter<>(this.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,DataManager.getExerciseTypes()));
         ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter();
         int spinnerPosition = myAdap.getPosition(DataManager.getExerciseType());
@@ -58,7 +67,8 @@ public class ExerciseEdit extends Fragment {
             spinnerPosition=myAdap.getPosition(exercise.getName());
         }
         spinner.setSelection(spinnerPosition);
-        binding.addReps.setOnClickListener(v -> NavHostFragment.findNavController(ExerciseEdit.this).navigate(R.id.action_editExercise_to_repEdit));
+        binding.addReps.setOnClickListener(v -> {NavHostFragment.findNavController(ExerciseEdit.this).navigate(R.id.action_editExercise_to_repEdit);
+        });
         binding.saveExercise.setOnClickListener(v->addOrUpdateExercise());
     }
 

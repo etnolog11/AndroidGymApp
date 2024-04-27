@@ -41,6 +41,14 @@ public class Set {
         this.setId = setId;
     }
 
+    public void setRepetitions(byte reps){
+        repetitions =reps;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
     @Override
     public String toString() {
         return repetitions+" reps with "+weight+"kg";
