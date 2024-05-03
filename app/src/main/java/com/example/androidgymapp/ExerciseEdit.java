@@ -13,13 +13,16 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavBackStackEntry;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.androidgymapp.databinding.FragmentExcerciseEditBinding;
 
 public class ExerciseEdit extends Fragment {
 
     private FragmentExcerciseEditBinding binding;
-
+    private  NavController navController ;
+    private final int[] notAllowedScreens= new int []{R.id.repEdit};
 
     @Override
     public View onCreateView(
@@ -28,8 +31,7 @@ public class ExerciseEdit extends Fragment {
     ) {
 
         binding = FragmentExcerciseEditBinding.inflate(inflater, container, false);
-
-
+        navController =NavHostFragment.findNavController(ExerciseEdit.this);
         return binding.getRoot();
 
     }
@@ -56,7 +58,7 @@ public class ExerciseEdit extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DataManager.setSetBeingEdited(finadapter.getData().get(position));
-                NavHostFragment.findNavController(ExerciseEdit.this)
+                navController
                         .navigate(R.id.action_editExercise_to_repEdit);
             }
         });
@@ -68,9 +70,30 @@ public class ExerciseEdit extends Fragment {
             spinnerPosition=myAdap.getPosition(exercise.getName());
         }
         spinner.setSelection(spinnerPosition);
-        binding.addReps.setOnClickListener(v -> {NavHostFragment.findNavController(ExerciseEdit.this).navigate(R.id.action_editExercise_to_repEdit);
+        binding.addReps.setOnClickListener(v -> {navController.navigate(R.id.action_editExercise_to_repEdit);
         });
         binding.saveExercise.setOnClickListener(v->addOrUpdateExercise());
+    }
+
+
+
+    public void onStart(){
+        super.onStart();
+        NavBackStackEntry entry =navController.getPreviousBackStackEntry();
+        DataManager.setSetBeingEdited(null);
+        if (entry!=null){
+            boolean isNotAllowed = false;
+            int destinationId = entry.getDestination().getId();
+            for (int id: notAllowedScreens)
+            {
+                isNotAllowed|=id==destinationId;
+            }
+            if (isNotAllowed) {
+                navController.popBackStack(destinationId, true);
+                Log.i("ExerciseEdit","Popping the stack");
+            }
+        }
+
     }
 
     @Override
@@ -86,11 +109,9 @@ public class ExerciseEdit extends Fragment {
         else{
             exercise =addExercise();
         }
-        DataManager.setExerciseBeingEdited(null);
-        DataManager.setExerciseTypeToDefault();
         if (!DataManager.getUpdatedOrAddedExercises().contains(exercise) )
             DataManager.addUpdatedOrAddedExercises(exercise);
-        NavHostFragment.findNavController(ExerciseEdit.this)
+        navController
                 .navigate(R.id.action_editExercise_to_workoutEdit);
     }
     private Exercise updateExercise(){

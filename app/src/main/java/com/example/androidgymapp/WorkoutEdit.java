@@ -12,9 +12,13 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavBackStackEntry;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.androidgymapp.databinding.FragmentWorkoutEditBinding;
@@ -31,12 +35,15 @@ import java.util.Locale;
 public class WorkoutEdit extends Fragment {
 
     private FragmentWorkoutEditBinding binding;
+    private NavController navController ;
+    private final int[] notAllowedScreens= new int []{R.id.editExercise,R.id.repEdit};
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        navController =NavHostFragment.findNavController(WorkoutEdit.this);
 
         binding = FragmentWorkoutEditBinding.inflate(inflater, container, false);
         ListView listView=(ListView)binding.getRoot().findViewById(R.id.exercise_list_view);
@@ -74,8 +81,8 @@ public class WorkoutEdit extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                NavHostFragment.findNavController(WorkoutEdit.this)
-                        .navigate(R.id.action_workoutEdit_to_editExercise);
+
+                        navController.navigate(R.id.action_workoutEdit_to_editExercise);
                 DataManager.setExerciseBeingEdited(finadapter.getData().get(position));
                 DataManager.setSets(finadapter.getData().get(position).getSets());
                 DataManager.setExerciseType(finadapter.getData().get(position).getName());
@@ -95,6 +102,27 @@ public class WorkoutEdit extends Fragment {
 
         });
     }
+    @Override
+    public void onStart(){
+        super.onStart();
+        NavBackStackEntry entry =navController.getPreviousBackStackEntry();
+        DataManager.setExerciseBeingEdited(null);
+        DataManager.setExerciseTypeToDefault();
+        if (entry!=null){
+            boolean isNotAllowed = false;
+            int destinationId = entry.getDestination().getId();
+            for (int id: notAllowedScreens)
+            {
+                isNotAllowed|=id==destinationId;
+            }
+            if (isNotAllowed) {
+                navController.popBackStack(destinationId, true);
+                Log.i("WorkoutEdit","Popping the stack");
+            }
+        }
+
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -162,11 +190,9 @@ public class WorkoutEdit extends Fragment {
             workout.setScore(scoreint);
             workout.setName(name);
             workout.setExercises(DataManager.allExercises);
-            DataManager.setExercises(new ArrayList<>());
-            DataManager.setWorkoutBeingEdited(null);
             db.updateWorkout(workout);
         }
-        NavHostFragment.findNavController(WorkoutEdit.this)
+        navController
                     .navigate(R.id.action_workoutEdit_to_FirstFragment);
 
     }

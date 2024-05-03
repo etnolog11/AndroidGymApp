@@ -70,7 +70,6 @@ public class SetEdit extends Fragment {
         }
         if (!DataManager.getUpdatedOrAddedSets().contains(set))
             DataManager.addUpdatedOrAddedSets(set);
-        DataManager.setSetBeingEdited(null);
         NavHostFragment.findNavController(SetEdit.this).navigate(R.id.action_repEdit_to_editExercise);
 
     }

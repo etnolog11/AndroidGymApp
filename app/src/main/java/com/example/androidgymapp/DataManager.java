@@ -12,7 +12,7 @@ public class DataManager {
     public static Workout workoutBeingEdited=null;
     public static Exercise exerciseBeingEdited = null;
     public static Set setBeingEdited= null;
-    private static String[] exerciseTypes= {"Lat Pulldown", "Shoulder Press","Row","Chest Press","Weighted Squat","Weighted Pull Up","Weighted Dip"};
+    private static final String[] exerciseTypes= {"Lat Pulldown", "Shoulder Press","Row","Chest Press","Weighted Squat","Weighted Pull Up","Weighted Dip"};
     private static String exerciseType= "";
     private static ArrayList<Set>  updatedOrAddedSets = new ArrayList<>();
     private static ArrayList<Exercise>  updatedOrAddedExercises = new ArrayList<>();
